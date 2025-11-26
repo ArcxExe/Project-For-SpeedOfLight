@@ -36,22 +36,6 @@ public class Fridge {
     System.out.println("Fridge is close");
   }
 
-  public void putFood() {
-    // TODO: Метод положить еду
-    this.open();
-    // Put food
-    System.out.println("Food in fridge");
-    this.close();
-  }
-
-  public Food getFood() {
-    // TODO: Получение еды из холодильника
-    this.open();
-    // Get method food
-    System.out.println("Food geted");
-    this.close();
-    return Food;
-  }
 
   // Get info for Fridge
   public ArrayList<String> getInfo() {
