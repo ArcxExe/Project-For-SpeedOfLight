@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Fridge {
 
-  private final ArrayList<Shelf> shelf;
+  private final List<Shelf> shelf;
   private FridgerInfo info;
-  private String stateDoor = "Close";
-  private String stateIsWorking = "Enabled";
+  private DoorStatus  stateDoor = DoorStatus.CLOSED;
+  private PowerStatus stateIsWorking = PowerStatus.OFF;
 
-  public Fridge(FridgerInfo info, ArrayList<Shelf> listShelf) {
+  public Fridge(FridgerInfo info, List<Shelf> listShelf) {
     this.info = info;
     if (listShelf.size() > info.maxCountShelf()) {
       throw new IllegalArgumentException("Shelf size , not more than max size");
@@ -19,10 +19,9 @@ public class Fridge {
     }
   }
 
-
   public void open() {
-    if (stateDoor != "Close") {
-      this.stateDoor = "Open";
+    if (stateDoor != DoorStatus.CLOSED) {
+      this.stateDoor = DoorStatus.OPEN;
       System.out.println("Fridge open");
     } else {
       System.out.println("Fridge door is already open");
@@ -30,8 +29,8 @@ public class Fridge {
   }
 
   public void shutdown() {
-    if (this.stateIsWorking != "Off") {
-      this.stateIsWorking = "Off";
+    if (this.stateIsWorking != PowerStatus.OFF) {
+      this.stateIsWorking = PowerStatus.OFF;
       System.out.println("Fride is off");
     } else {
       System.out.println("Fride is already off");
@@ -45,8 +44,8 @@ public class Fridge {
   }
 
   public void activate() {
-    if (this.stateIsWorking == "Off") {
-      this.stateIsWorking = "Enabled";
+    if (this.stateIsWorking == PowerStatus.OFF) {
+      this.stateIsWorking = PowerStatus.ON;
       System.out.println("Fridge is active");
     } else {
       System.out.println("Fride is already working");
@@ -54,11 +53,8 @@ public class Fridge {
   }
 
   public void close() {
-    // TODO: Logic open fridge . Так же после того , как положил еду , и уйти , то
-    // есть закрыть программу , требуется обязательно закрыть холожильник
-    // То есть , требуется чтобы холодильник был всегда закрыт
-    if (this.stateDoor != "Open") {
-      this.stateDoor = "Close";
+    if (this.stateDoor != DoorStatus.CLOSED) {
+      this.stateDoor = DoorStatus.CLOSED;
       System.out.println("Fridge is close");
     } else {
       System.out.println("Fridge door is already close");
