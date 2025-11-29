@@ -8,12 +8,12 @@ import ru.arcxexe.solidfridge.Food.*;
 public class Shelf implements ShelfInterface {
 
   int sizeShelf;
-  List<Food> shelf;
+  Food[] shelf;
 
   public Shelf(int sizeShelf) {
     this.sizeShelf = sizeShelf;
     if (sizeShelf > 0) {
-      this.shelf = Collections.nCopies(sizeShelf, null);
+      this.shelf = new Food[sizeShelf];
     }
   }
 
@@ -25,15 +25,18 @@ public class Shelf implements ShelfInterface {
     System.out.println(result);
   }
 
-  public void putFood(Food food) {
+
+  //Rename to AddFood
+  public void putFood(Food food , int index) {
     // TODO: Add exceptions
-    this.shelf.add(food);
+    this.shelf[index] = food;
     System.out.println("Food in fridge");
   }
 
   public Food getFood(int index) {
-    var food = this.shelf.get(index);
+    var food = this.shelf[index];
     if (food != null) {
+      this.shelf[index] = null;
       return food;
     }else {
       throw new IndexOutOfBoundsException("По заданному индексу нету еды");
