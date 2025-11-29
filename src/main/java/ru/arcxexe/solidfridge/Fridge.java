@@ -1,38 +1,34 @@
 package ru.arcxexe.solidfridge;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Fridge {
 
-  private ArrayList<Shelf> shelf = new ArrayList<Shelf>();
+  private List<ShelfInterface> shelf;
   private FridgerInfo info;
   private DoorStatus  stateDoor = DoorStatus.CLOSED;
   private PowerStatus stateIsWorking = PowerStatus.OFF;
 
-  public Fridge(FridgerInfo info) {
+  public Fridge(FridgerInfo info , List<ShelfInterface> shelf ) {
     this.info = info;
-    for (int i = 0; i < this.info.maxCountShelf(); i++) {
-      Shelf a = new Shelf(this.info.maxCapacityShelf());
-      this.shelf.add(a);
-    }
+    this.shelf = shelf;
   }
 
-  public Shelf getShelfByIndex(int index) {
+  public ShelfInterface getShelfByIndex(int index) {
     return this.shelf.get(index);
   }
 
   public void printAllShelf() {
     int b = 0;
-    for (Shelf a: this.shelf ) {
+    for (ShelfInterface a: this.shelf  ) {
       System.out.println("Shelf number: " + Integer.toString(b));
-      a.getListFood();
+      System.out.println(a.getListFood());
       b++;
     }
   }
 
   public void open() {
-    if (stateDoor != DoorStatus.CLOSED) {
+    if (stateDoor == DoorStatus.CLOSED) {
       this.stateDoor = DoorStatus.OPEN;
       System.out.println("Fridge open");
     } else {
