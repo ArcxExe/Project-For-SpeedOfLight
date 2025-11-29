@@ -2,6 +2,9 @@ package ru.arcxexe.solidfridge;
 
 import java.util.List;
 
+import ru.arcxexe.solidfridge.Exceprions.DoorStateException;
+import ru.arcxexe.solidfridge.Exceprions.FridgeStateException;
+
 public class Fridge {
 
   private List<ShelfInterface> shelf;
@@ -30,18 +33,16 @@ public class Fridge {
   public void open() {
     if (stateDoor == DoorStatus.CLOSED) {
       this.stateDoor = DoorStatus.OPEN;
-      System.out.println("Fridge open");
     } else {
-      System.out.println("Fridge door is already open");
+      throw new DoorStateException("Door already opened");
     }
   }
 
   public void shutdown() {
     if (this.stateIsWorking != PowerStatus.OFF) {
       this.stateIsWorking = PowerStatus.OFF;
-      System.out.println("Fride is off");
     } else {
-      System.out.println("Fride is already off");
+      throw new FridgeStateException("Fride already off");
     }
   }
   public String getStateFridge() {
@@ -54,18 +55,16 @@ public class Fridge {
   public void activate() {
     if (this.stateIsWorking == PowerStatus.OFF) {
       this.stateIsWorking = PowerStatus.ON;
-      System.out.println("Fridge is active");
     } else {
-      System.out.println("Fride is already working");
+      throw new FridgeStateException("Fride already activate");
     }
   }
 
   public void close() {
     if (this.stateDoor != DoorStatus.CLOSED) {
       this.stateDoor = DoorStatus.CLOSED;
-      System.out.println("Fridge is close");
     } else {
-      System.out.println("Fridge door is already close");
+      throw new DoorStateException("Door already closed");
     }
   }
 
