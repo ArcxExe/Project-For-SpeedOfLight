@@ -5,22 +5,30 @@ import java.util.List;
 
 public class Fridge {
 
-  private List<Shelf> shelf;
+  private ArrayList<Shelf> shelf = new ArrayList<Shelf>();
   private FridgerInfo info;
   private DoorStatus  stateDoor = DoorStatus.CLOSED;
   private PowerStatus stateIsWorking = PowerStatus.OFF;
 
-  public Fridge(FridgerInfo info, List<Shelf> listShelf) {
+  public Fridge(FridgerInfo info) {
     this.info = info;
-    if (listShelf.size() > info.maxCountShelf()) {
-      throw new IllegalArgumentException("Shelf size , not more than max size");
-    }else {
-      this.shelf = listShelf;
+    for (int i = 0; i < this.info.maxCountShelf(); i++) {
+      Shelf a = new Shelf(this.info.maxCapacityShelf());
+      this.shelf.add(a);
     }
   }
 
   public Shelf getShelfByIndex(int index) {
     return this.shelf.get(index);
+  }
+
+  public void printAllShelf() {
+    int b = 0;
+    for (Shelf a: this.shelf ) {
+      System.out.println("Shelf number: " + Integer.toString(b));
+      a.getListFood();
+      b++;
+    }
   }
 
   public void open() {
@@ -65,8 +73,7 @@ public class Fridge {
     }
   }
 
-  // Get info for Fridge
-  public ArrayList<String> getInfo() {
-    return new ArrayList<String>(List.of(info.brand(), info.model(), Integer.toString(info.elcUsing())));
+  public List<String> getInfo() {
+    return info.getInfo();
   }
 }
