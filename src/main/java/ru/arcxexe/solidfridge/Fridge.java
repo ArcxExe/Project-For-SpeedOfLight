@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Fridge {
 
-  private final List<Shelf> shelf;
+  private List<Shelf> shelf;
   private FridgerInfo info;
   private DoorStatus  stateDoor = DoorStatus.CLOSED;
   private PowerStatus stateIsWorking = PowerStatus.OFF;
@@ -17,6 +17,10 @@ public class Fridge {
     }else {
       this.shelf = listShelf;
     }
+  }
+
+  public Shelf getShelfByIndex(int index) {
+    return this.shelf.get(index);
   }
 
   public void open() {
