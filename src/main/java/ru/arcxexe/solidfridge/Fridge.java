@@ -5,52 +5,64 @@ import java.util.List;
 
 public class Fridge {
 
+  private List<Shelf> shelf;
   private FridgerInfo info;
+  private DoorStatus  stateDoor = DoorStatus.CLOSED;
+  private PowerStatus stateIsWorking = PowerStatus.OFF;
 
-  public Fridge(FridgerInfo info) {
+  public Fridge(FridgerInfo info, List<Shelf> listShelf) {
     this.info = info;
+    if (listShelf.size() > info.maxCountShelf()) {
+      throw new IllegalArgumentException("Shelf size , not more than max size");
+    }else {
+      this.shelf = listShelf;
+    }
+  }
+
+  public Shelf getShelfByIndex(int index) {
+    return this.shelf.get(index);
   }
 
   public void open() {
-    // TODO: Logic open fridge . Требуется для для того чтобы положить еду . Без
-    // изменения этого состояния не получится положить еду.
-    System.out.println("Fridge open");
+    if (stateDoor != DoorStatus.CLOSED) {
+      this.stateDoor = DoorStatus.OPEN;
+      System.out.println("Fridge open");
+    } else {
+      System.out.println("Fridge door is already open");
+    }
   }
 
-  public void getStateFridge() {
-    // TODO: Получение данных о состоянии холожильника .
-    // Закрыт или открыт
-    // Открыт или закрыт
-    // Включен или нет
+  public void shutdown() {
+    if (this.stateIsWorking != PowerStatus.OFF) {
+      this.stateIsWorking = PowerStatus.OFF;
+      System.out.println("Fride is off");
+    } else {
+      System.out.println("Fride is already off");
+    }
+  }
+  public String getStateFridge() {
+    StringBuilder state = new StringBuilder();
+    state.append("Stating position Door: " + this.stateDoor + "\n");
+    state.append("Stating work: " + this.stateIsWorking + "\n");
+    return state.toString();
   }
 
   public void activate() {
-    // TODO: Logic activate fridge
-    System.out.println("Fridge is active");
+    if (this.stateIsWorking == PowerStatus.OFF) {
+      this.stateIsWorking = PowerStatus.ON;
+      System.out.println("Fridge is active");
+    } else {
+      System.out.println("Fride is already working");
+    }
   }
 
   public void close() {
-    // TODO: Logic open fridge . Так же после того , как положил еду , и уйти , то
-    // есть закрыть программу , требуется обязательно закрыть холожильник
-    // То есть , требуется чтобы холодильник был всегда закрыт
-    System.out.println("Fridge is close");
-  }
-
-  public void putFood() {
-    // TODO: Метод положить еду
-    this.open();
-    // Put food
-    System.out.println("Food in fridge");
-    this.close();
-  }
-
-  public Food getFood() {
-    // TODO: Получение еды из холодильника
-    this.open();
-    // Get method food
-    System.out.println("Food geted");
-    this.close();
-    return Food;
+    if (this.stateDoor != DoorStatus.CLOSED) {
+      this.stateDoor = DoorStatus.CLOSED;
+      System.out.println("Fridge is close");
+    } else {
+      System.out.println("Fridge door is already close");
+    }
   }
 
   // Get info for Fridge
