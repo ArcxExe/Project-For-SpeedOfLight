@@ -5,12 +5,9 @@ import java.time.temporal.ChronoUnit;
 
 public class Food implements Expirable {
   private String name;
-  private final LocalDate dateCreating;
   private final LocalDate dateDelay;
-
-  public Food(String name, LocalDate dateCreating, LocalDate dateDelay) {
+  public Food(String name , LocalDate dateDelay) {
     this.name = name;
-    this.dateCreating = dateCreating;
     this.dateDelay = dateDelay;
   }
 
@@ -18,13 +15,13 @@ public class Food implements Expirable {
     return this.name;
   }
 
-  public LocalDate getCreateingDate() {
-    return this.dateCreating;
+  public LocalDate getTodayNow() {
+    return LocalDate.now();
   }
 
   @Override
   public long diffrensBetweenDate() {
-    return ChronoUnit.DAYS.between(this.dateCreating, this.dateDelay);
+    return ChronoUnit.DAYS.between(LocalDate.now(), this.dateDelay);
   }
 
   @Override

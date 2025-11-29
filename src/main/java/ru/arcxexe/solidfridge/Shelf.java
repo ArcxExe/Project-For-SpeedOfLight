@@ -1,8 +1,6 @@
 package ru.arcxexe.solidfridge;
 
-import java.util.List;
-import java.util.Collections;
-
+import ru.arcxexe.solidfridge.Exceprions.FoodIncorrectExceprion;
 import ru.arcxexe.solidfridge.Food.*;
 
 public class Shelf implements ShelfInterface {
@@ -17,23 +15,27 @@ public class Shelf implements ShelfInterface {
     }
   }
 
-  public void getListFood() {
+  public String getListFood() {
     StringBuilder result = new StringBuilder();
     for (Food food : shelf) {
       result.append(food + " ");
     }
-    System.out.println(result);
+    return result.toString();
   }
 
 
-  //Rename to AddFood
-  public void putFood(Food food , int index) {
-    // TODO: Add exceptions
+  public void addFood(Food food , int index) {
+    if (food.getName() == null || index <= 0 ) {
+      throw new FoodIncorrectExceprion("Food or index incorrect");
+    }
     this.shelf[index] = food;
     System.out.println("Food in fridge");
   }
 
   public Food getFood(int index) {
+    if (index <= 0 ) {
+      throw new FoodIncorrectExceprion("Incorrect index")
+    }
     var food = this.shelf[index];
     if (food != null) {
       this.shelf[index] = null;
