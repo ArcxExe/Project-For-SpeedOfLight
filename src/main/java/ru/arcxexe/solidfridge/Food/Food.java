@@ -32,4 +32,8 @@ public class Food implements Expirable {
     return this.dateDelay;
   }
 
+  @Override
+  public String toString() {
+    return "Food{" + "name='" + name + '\'' + ", expires=" + dateDelay + '}';
+  }
 }
