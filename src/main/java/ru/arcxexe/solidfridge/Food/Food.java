@@ -3,7 +3,7 @@ package ru.arcxexe.solidfridge.Food;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public abstract class Food implements Expirable {
+public class Food implements Expirable {
   private String name;
   private final LocalDate dateCreating;
   private final LocalDate dateDelay;
